@@ -4,7 +4,7 @@ EXECELspliter is a tool for excelees to make a split of document easily .
 if you are interested in source code , you can build one and modify it for
 features add-on you want it to be , then read build from source underlying. 
 
- <Br> typical scenario : you have a '.xlsx' file with 1 million lines and you want it to be split to ones limited to 250 lines , and each sheet into a single file , moreover , each one owns the same header line witch usually been a type definition ,then , choose EXCELspliter is a simple solution.  <Br/>
+ <Br> typical scenario : you have a '.xlsx' file with 1 million lines and you want it to be split to ones limited to 250 lines , and each sheet into a single file , moreover , each one owns the same header line whitch usually been a type definition ,then , choose EXCELspliter is a simple solution.  <Br/>
 
 #### build from source:
 ###### build execution file:
