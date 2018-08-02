@@ -42,3 +42,6 @@ _-t :_ where the output files targeting at.
 #### for more details with CLI params:
 
 _-h :_ for help with command line params
+
+#### get executable file:
+[release](https://github.com/fadeAce/EXCELspliter/releases)
