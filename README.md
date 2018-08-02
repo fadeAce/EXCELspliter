@@ -1,4 +1,4 @@
-### **English documentation** | [中文文档](./doc/中文文档.md)
+### **EN documentation** | [中文文档](./doc/中文文档.md)
 
 EXECELspliter is a tool for excelees to make a split of document easily .
 if you are interested in source code , you can build one and modify it for
