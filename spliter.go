@@ -88,7 +88,7 @@ func main() {
 		return
 	}
 
-	rows := xlsx.GetRows("1")
+	rows := xlsx.GetRows(*sheet)
 	header := rows[0]
 
 	fmt.Println("")
