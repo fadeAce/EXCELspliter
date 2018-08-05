@@ -7,64 +7,6 @@ import (
 	"os"
 )
 
-const (
-	A = iota
-	B
-	C
-	D
-	E
-	F
-	G
-	H
-	I
-	J
-	K
-	L
-	M
-	N
-	O
-	P
-	Q
-	R
-	S
-	T
-	U
-	V
-	W
-	X
-	Y
-	Z
-)
-
-var UnitMap = map[int]string{
-	A: "A",
-	B: "B",
-	C: "C",
-	D: "D",
-	E: "E",
-	F: "F",
-	G: "G",
-	H: "H",
-	I: "I",
-	J: "J",
-	K: "K",
-	L: "L",
-	M: "M",
-	N: "N",
-	O: "O",
-	P: "P",
-	Q: "Q",
-	R: "R",
-	S: "S",
-	T: "T",
-	U: "U",
-	V: "V",
-	W: "W",
-	X: "X",
-	Y: "Y",
-	Z: "Z",
-}
-
 func main() {
 
 	path := flag.String("p", "./sheet.xlsx", "path for given xlsx file to split from")
@@ -165,15 +107,4 @@ func main() {
 			fmt.Println(err)
 		}
 	}
-}
-
-func PathExists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
-	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	return false, err
 }

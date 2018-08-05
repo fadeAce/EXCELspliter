@@ -1,0 +1,25 @@
+# path for taget file
+path: ./test.xlsx
+
+# whether to involved header for file in
+head: true
+
+# length for a splitting
+length: 250
+
+#  where the output files targeting at
+target: ./target
+
+# what sheet you want to split at
+sheet: 1
+
+# ---- advanced configs
+
+# output sheets
+output:
+  # output sheet after splitting
+  sheet: one
+
+default:
+  # when mastering blank space
+  blank: false
