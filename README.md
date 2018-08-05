@@ -45,3 +45,6 @@ _-h :_ for help with command line params
 
 #### get executable file:
 [release](https://github.com/fadeAce/EXCELspliter/releases)
+
+#### advanced usage & config file:
+for advanced usage and versatile functions , you may get it from `-h` console print helper , which shows a series functions that should be configured in `yaml` file.

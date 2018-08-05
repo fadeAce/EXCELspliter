@@ -21,7 +21,35 @@ func main() {
 	head := flag.Bool("head", false, "whether to keep head to per file split by length")
 	sheet := flag.String("s", "sheet1", "what sheet you want to split at")
 	target := flag.String("t", "./doc", "where the output files targeting at")
-	config := flag.String("config", "./conf.yaml", "where the config file is at")
+	config := flag.String("config", "./conf.yaml",
+	`
+			# path for taget file
+			path: ./lzy.xlsx
+			
+			# whether to involved header for file in
+			head: true
+			
+			# length for a splitting
+			length: 250
+			
+			#  where the output files targeting at
+			target: ./target
+			
+			# what sheet you want to split at
+			sheet: 1
+			
+			# ---- advanced configs
+			
+			# output sheets
+			output:
+			  # output sheet after splitting
+			  sheet: one
+			
+			default:
+			  # when mastering blank space
+			  blank: false
+		  `	,
+	)
 
 	flag.Parse()
 
