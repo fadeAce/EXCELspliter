@@ -57,3 +57,7 @@ var UnitMap = map[int]string{
 	Y: "Y",
 	Z: "Z",
 }
+
+const (
+	DEFAULT_SHEET_NAME = "sheet1"
+)

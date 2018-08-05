@@ -5,15 +5,21 @@ import (
 	"flag"
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"os"
+	"io/ioutil"
+	"gopkg.in/yaml.v2"
+	"./config"
 )
 
 func main() {
+
+	tar := config.Conf{}
 
 	path := flag.String("p", "./sheet.xlsx", "path for given xlsx file to split from")
 	length := flag.Int("l", 100, "length for a splitting")
 	head := flag.Bool("head", false, "whether to keep head to per file split by length")
 	sheet := flag.String("s", "sheet1", "what sheet you want to split at")
 	target := flag.String("t", "./doc", "where the output files targeting at")
+	config := flag.String("config", "./conf.yaml", "where the config file is at")
 
 	flag.Parse()
 
@@ -22,6 +28,28 @@ func main() {
 	fmt.Println("head:", *head)
 	fmt.Println("sheet:", *sheet)
 	fmt.Println("target:", *target)
+	fmt.Println("config", *config)
+
+
+
+	if *config != "" {
+		d, err := ioutil.ReadFile("./yml_test.yaml")
+		if err != nil {
+			fmt.Println(err)
+		}
+		err = yaml.Unmarshal([]byte(d), &tar)
+		if err != nil {
+			fmt.Println(err)
+		}
+		*head = tar.Head
+		*path = tar.File
+		*sheet = tar.SourceSheet
+		*length = tar.Length
+		*target = tar.TargetPath
+
+		*head = tar.Head
+		*head = tar.Head
+	}
 
 	xlsx, err := excelize.OpenFile(*path)
 
@@ -87,6 +115,9 @@ func main() {
 		name := fmt.Sprintf("%s-%d", "split", i+1)
 		xlsx := excelize.NewFile()
 		index := xlsx.NewSheet(*sheet)
+		if tar.Output.Sheet != DEFAULT_SHEET_NAME {
+			xlsx.DeleteSheet(DEFAULT_SHEET_NAME)
+		}
 		for l, row := range v {
 			for x, value := range row {
 				xAxis := fmt.Sprintf("%s%d", UnitMap[x], l+1)
