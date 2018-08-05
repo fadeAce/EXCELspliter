@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"gopkg.in/yaml.v2"
 	"./config"
+	"./const"
+	"./utils"
 )
 
 func main() {
@@ -23,17 +25,8 @@ func main() {
 
 	flag.Parse()
 
-	fmt.Println("path:", *path)
-	fmt.Println("length:", *length)
-	fmt.Println("head:", *head)
-	fmt.Println("sheet:", *sheet)
-	fmt.Println("target:", *target)
-	fmt.Println("config", *config)
-
-
-
 	if *config != "" {
-		d, err := ioutil.ReadFile("./yml_test.yaml")
+		d, err := ioutil.ReadFile(*config)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -50,6 +43,13 @@ func main() {
 		*head = tar.Head
 		*head = tar.Head
 	}
+
+	fmt.Println("path:", *path)
+	fmt.Println("length:", *length)
+	fmt.Println("head:", *head)
+	fmt.Println("sheet:", *sheet)
+	fmt.Println("target:", *target)
+	fmt.Println("config", *config)
 
 	xlsx, err := excelize.OpenFile(*path)
 
@@ -111,23 +111,24 @@ func main() {
 	fmt.Println("all lines are sum to : ", val)
 
 	for i, v := range files {
+		sheetname := tar.Output.Sheet
 		fmt.Println("now file ", i+1)
 		name := fmt.Sprintf("%s-%d", "split", i+1)
 		xlsx := excelize.NewFile()
-		index := xlsx.NewSheet(*sheet)
-		if tar.Output.Sheet != DEFAULT_SHEET_NAME {
-			xlsx.DeleteSheet(DEFAULT_SHEET_NAME)
+		index := xlsx.NewSheet(sheetname)
+		if sheetname != _const.DEFAULT_SHEET_NAME {
+			xlsx.DeleteSheet(_const.DEFAULT_SHEET_NAME)
 		}
 		for l, row := range v {
 			for x, value := range row {
-				xAxis := fmt.Sprintf("%s%d", UnitMap[x], l+1)
-				xlsx.SetCellValue(*sheet, xAxis, value)
+				xAxis := fmt.Sprintf("%s%d", _const.UnitMap[x], l+1)
+				xlsx.SetCellValue(sheetname, xAxis, value)
 			}
 		}
 		xlsx.SetActiveSheet(index)
 
 		//find if dir exist
-		ok, _ := PathExists(*target)
+		ok, _ := utils.PathExists(*target)
 		if !ok {
 			err := os.Mkdir(*target, os.ModePerm)
 			fmt.Println(err)

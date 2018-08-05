@@ -4,8 +4,6 @@ import (
 	"testing"
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"fmt"
-	"io/ioutil"
-	"gopkg.in/yaml.v2"
 )
 
 func TestPathWrt(t *testing.T) {

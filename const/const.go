@@ -1,4 +1,4 @@
-package main
+package _const
 
 const (
 	A = iota
@@ -59,5 +59,5 @@ var UnitMap = map[int]string{
 }
 
 const (
-	DEFAULT_SHEET_NAME = "sheet1"
+	DEFAULT_SHEET_NAME = "Sheet1"
 )
