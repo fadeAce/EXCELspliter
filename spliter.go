@@ -10,6 +10,7 @@ import (
 	"./config"
 	"./const"
 	"./utils"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -56,11 +57,11 @@ func main() {
 	if *config != "" {
 		d, err := ioutil.ReadFile(*config)
 		if err != nil {
-			fmt.Println(err)
+			log.Info(err)
 		}
 		err = yaml.Unmarshal([]byte(d), &tar)
 		if err != nil {
-			fmt.Println(err)
+			log.Info(err)
 		}
 		*head = tar.Head
 		*path = tar.File
@@ -72,31 +73,31 @@ func main() {
 		*head = tar.Head
 	}
 
-	fmt.Println("path:", *path)
-	fmt.Println("length:", *length)
-	fmt.Println("head:", *head)
-	fmt.Println("sheet:", *sheet)
-	fmt.Println("target:", *target)
-	fmt.Println("config", *config)
+	log.Info("path:", *path)
+	log.Info("length:", *length)
+	log.Info("head:", *head)
+	log.Info("sheet:", *sheet)
+	log.Info("target:", *target)
+	log.Info("config", *config)
 
 	xlsx, err := excelize.OpenFile(*path)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Info(err)
 		return
 	}
 
 	rows := xlsx.GetRows(*sheet)
 	header := rows[0]
 
-	fmt.Println("")
+	log.Info("")
 
 	sum := (len(rows))/(*length) + 1
 	if *head {
 		sum = (len(rows)-1)/(*length) + 1
 	}
-	fmt.Println("sum is ", len(rows))
-	fmt.Println("split to ", sum, "files")
+	log.Info("sum is ", len(rows))
+	log.Info("split to ", sum, "files")
 
 	files := [][][]string{}
 
@@ -108,22 +109,22 @@ func main() {
 			fmt.Print(v, "\t")
 		}
 
-		fmt.Println("")
-		fmt.Println("begin splitting!")
+		log.Info("")
+		log.Info("begin splitting!")
 
 		rowrows := rows[1:]
 		// begin split
 		for index, row := range rowrows {
 			i := index / (*length)
 			if len(files) == i {
-				fmt.Println("pending cache page : ", i)
+				log.Info("pending cache page : ", i)
 				files = append(files, [][]string{header})
 			}
 			single := files[i]
 			single = append(single, row)
 			files[i] = single
 			if index == len(rowrows)-1 {
-				fmt.Println("last one is ", row, " at page", i+1)
+				log.Info("last one is ", row, " at page", i+1)
 			}
 		}
 	} else {
@@ -135,12 +136,12 @@ func main() {
 		val += len(v)
 	}
 
-	fmt.Println(len(files))
-	fmt.Println("all lines are sum to : ", val)
+	log.Info(len(files))
+	log.Info("all lines are sum to : ", val)
 
 	for i, v := range files {
 		sheetname := tar.Output.Sheet
-		fmt.Println("now file ", i+1)
+		log.Info("now file ", i+1)
 		name := fmt.Sprintf("%s-%d", "split", i+1)
 		xlsx := excelize.NewFile()
 		index := xlsx.NewSheet(sheetname)
@@ -159,12 +160,12 @@ func main() {
 		ok, _ := utils.PathExists(*target)
 		if !ok {
 			err := os.Mkdir(*target, os.ModePerm)
-			fmt.Println(err)
+			log.Info(err)
 		}
 
 		err := xlsx.SaveAs(*target + "/" + name + ".xlsx")
 		if err != nil {
-			fmt.Println(err)
+			log.Info(err)
 		}
 	}
 }
