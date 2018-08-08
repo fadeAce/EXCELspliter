@@ -27,6 +27,32 @@ const (
 	X
 	Y
 	Z
+	AA
+	AB
+	AC
+	AD
+	AE
+	AF
+	AG
+	AH
+	AI
+	AJ
+	AK
+	AL
+	AM
+	AN
+	AO
+	AP
+	AQ
+	AR
+	AS
+	AT
+	AU
+	AV
+	AW
+	AX
+	AY
+	AZ
 )
 
 var UnitMap = map[int]string{
@@ -56,6 +82,32 @@ var UnitMap = map[int]string{
 	X: "X",
 	Y: "Y",
 	Z: "Z",
+	AA: "AA",
+	AB: "AB",
+	AC: "AC",
+	AD: "AD",
+	AE: "AE",
+	AF: "AF",
+	AG: "AG",
+	AH: "AH",
+	AI: "AI",
+	AJ: "AJ",
+	AK: "AK",
+	AL: "AL",
+	AM: "AM",
+	AN: "AN",
+	AO: "AO",
+	AP: "AP",
+	AQ: "AQ",
+	AR: "AR",
+	AS: "AS",
+	AT: "AT",
+	AU: "AU",
+	AV: "AV",
+	AW: "AW",
+	AX: "AX",
+	AY: "AY",
+	AZ: "AZ",
 }
 
 const (
