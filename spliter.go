@@ -90,11 +90,11 @@ func main() {
 
 	rows, err := xlsx.GetRows("Sheet1")
 	if err != nil {
-		fmt.Println(err)
+		log.Info(err)
 		return
 	}
 
-	log.Info("rows", rows)
+	// log.Info("rows", rows)
 
 	header := rows[0]
 
