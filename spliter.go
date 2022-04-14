@@ -1,16 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"flag"
-	"github.com/360EntSecGroup-Skylar/excelize"
-	"os"
+	"fmt"
 	"io/ioutil"
-	"gopkg.in/yaml.v2"
-	"./config"
-	"./const"
-	"./utils"
+	"os"
+
+	"github.com/fadeAce/EXCELspliter/defaultset"
+
+	"github.com/fadeAce/EXCELspliter/config"
+	"github.com/fadeAce/EXCELspliter/utils"
 	log "github.com/sirupsen/logrus"
+	"github.com/xuri/excelize/v2"
+	"gopkg.in/yaml.v2"
 )
 
 func main() {
@@ -23,7 +25,7 @@ func main() {
 	sheet := flag.String("s", "sheet1", "what sheet you want to split at")
 	target := flag.String("t", "./doc", "where the output files targeting at")
 	config := flag.String("config", "./conf.yaml",
-	`
+		`
 			# path for taget file
 			path: ./lzy.xlsx
 			
@@ -49,7 +51,7 @@ func main() {
 			default:
 			  # when mastering blank space
 			  blank: false
-		  `	,
+		  `,
 	)
 
 	flag.Parse()
@@ -70,7 +72,6 @@ func main() {
 		*target = tar.TargetPath
 
 		*head = tar.Head
-		*head = tar.Head
 	}
 
 	log.Info("path:", *path)
@@ -87,7 +88,14 @@ func main() {
 		return
 	}
 
-	rows := xlsx.GetRows(*sheet)
+	rows, err := xlsx.GetRows("Sheet1")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	log.Info("rows", rows)
+
 	header := rows[0]
 
 	log.Info("")
@@ -145,12 +153,12 @@ func main() {
 		name := fmt.Sprintf("%s-%d", "split", i+1)
 		xlsx := excelize.NewFile()
 		index := xlsx.NewSheet(sheetname)
-		if sheetname != _const.DEFAULT_SHEET_NAME {
-			xlsx.DeleteSheet(_const.DEFAULT_SHEET_NAME)
+		if sheetname != defaultset.DEFAULT_SHEET_NAME {
+			xlsx.DeleteSheet(defaultset.DEFAULT_SHEET_NAME)
 		}
 		for l, row := range v {
 			for x, value := range row {
-				xAxis := fmt.Sprintf("%s%d", _const.UnitMap[x], l+1)
+				xAxis := fmt.Sprintf("%s%d", defaultset.UnitMapX[x], l+1)
 				xlsx.SetCellValue(sheetname, xAxis, value)
 			}
 		}
