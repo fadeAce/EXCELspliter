@@ -152,7 +152,8 @@ func main() {
 		log.Info("now file ", i+1)
 		name := fmt.Sprintf("%s-%d", "split", i+1)
 		xlsx := excelize.NewFile()
-		index := xlsx.NewSheet(sheetname)
+		index, _ := xlsx.NewSheet(sheetname)
+
 		if sheetname != defaultset.DEFAULT_SHEET_NAME {
 			xlsx.DeleteSheet(defaultset.DEFAULT_SHEET_NAME)
 		}
