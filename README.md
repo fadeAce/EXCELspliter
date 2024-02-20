@@ -1,43 +1,43 @@
-### **EN documentation** | [中文文档](./doc/中文文档.md)
+# EXCELspliter
+## **EN documentation** | [中文文档](./doc/中文文档.md)
 
-EXECELspliter is a tool for excelees to make a split of document easily .
-if you are interested in source code , you can build one and modify it for
-features add-on you want it to be , then read build from source underlying. 
+EXCELspliter is a tool to make a split Excel documents easily. If you are interested in source code, you can build one and modify it for features add-on you want it to be, then read build from the source.
 
- <Br> typical scenario : you have a '.xlsx' file with 1 million lines and you want it to be split to ones limited to 250 lines , and each sheet into a single file , moreover , each one owns the same header line whitch usually been a type definition ,then , choose EXCELspliter is a simple solution.  <Br/>
+Typical scenario: you have a large Excel file with 1 million lines and you want it to split them into multiple files with 250 lines per file while retain the header.
 
-#### build from source:
-###### build execution file:
+EXCELspliter can do the job.
+
+## Build from source
+### build execution file:
 ```apple js
 cd EXCELspliter
 go get
 go build
 ```
-###### run from source:
+### run from source:
 ```apple js
 ls
 LICENSE  README.md  spliter.exe*  spliter.go  writer_test.go
 ```
-there is an execution file spliter.exe , remember do not run it directly , you should open console (win + X) or cmd.exe
-then cd to EXCELspliter and make a command like underlying
+Do not double-click/open the EXCELspliter.exe file directly. You should open Terminal or Command Prompt `(Win+X).` then `cd` or change directory to EXCELspliter and run the command from there.
 
-an example for you to tap'in CLI :
+Example:
 
 ```apple js
-spliter.exe -p=./lzy.xlsx -head -l=10 -s=1
+EXCELspliter.exe -p=./lzy.xlsx -head -l=10 -s=1
 ```
 
-#### params to control splitting:
+### Parameters:
 
-_-head :_ (optional) Whether to keep head for this file when processing splitting.
+_-head :_ (optional) Whether to keep first line header for this file when splitting.
 
-_-p :_ path for given xlsx file to split from.
+_-p :_ path for excel file.
 
-_-l :_ length for a splitting.
+_-l :_ total rows you want to keep per excel file.
 
-_-s :_ what sheet you want to split at.
+_-s :_ excel sheet index.
 
-_-t :_ where the output files targeting at.
+_-t :_ where the output files to be saved.
 
 #### for more details with CLI params:
 
@@ -47,4 +47,4 @@ _-h :_ for help with command line params
 [release](https://github.com/fadeAce/EXCELspliter/releases)
 
 #### advanced usage & config file:
-for advanced usage and versatile functions , you may get it from `-h` console print helper , which shows a series functions that should be configured in `yaml` file.
+For advanced usage and versatile functions , you may get it from `-h` console print helper, which shows a series functions that should be configured in `yaml` file.
